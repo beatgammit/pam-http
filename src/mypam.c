@@ -8,8 +8,6 @@
 
 // libcurl
 #include <curl/curl.h>
-#include <curl/types.h>
-#include <curl/easy.h>
 
 /* expected hook */
 PAM_EXTERN int pam_sm_setcred( pam_handle_t *pamh, int flags, int argc, const char **argv ) {
@@ -23,7 +21,7 @@ PAM_EXTERN int pam_sm_acct_mgmt(pam_handle_t *pamh, int flags, int argc, const c
 
 /*
  * Makes getting arguments easier. Accepted arguments are of the form: name=value
- * 
+ *
  * @param pName- name of the argument to get
  * @param argc- number of total arguments
  * @param argv- arguments
@@ -44,7 +42,7 @@ static const char* getArg(const char* pName, int argc, const char** argv) {
 
 /*
  * Function to handle stuff from HTTP response.
- * 
+ *
  * @param buf- Raw buffer from libcurl.
  * @param len- number of indices
  * @param size- size of each index
@@ -113,7 +111,7 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t* pamh, int flags, int argc, cons
 
 	msg.msg_style = PAM_PROMPT_ECHO_OFF;
 	msg.msg = "Cool buddy: ";
-	
+
 	printf("I got called\n");
 
 	if (pam_get_user(pamh, &pUsername, NULL) != PAM_SUCCESS) {
@@ -138,9 +136,9 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t* pamh, int flags, int argc, cons
 	if (getUrl(pUrl, pUsername, pResp[0].resp, pCaFile) != 0) {
 		ret = PAM_AUTH_ERR;
 	}
-	
+
 	memset(pResp[0].resp, 0, strlen(pResp[0].resp));
 	free(pResp);
-	
+
 	return ret;
 }
