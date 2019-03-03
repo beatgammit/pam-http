@@ -1,0 +1,4 @@
+policy_module(mypolicy,1.0.0)
+gen_require(`type cert_t, dovecot_auth_t, http_port_t;')
+gen_tunable(dovecot_can_http_connect, false)
+tunable_policy(`dovecot_can_http_connect',`allow dovecot_auth_t cert_t:dir write; allow dovecot_auth_t cert_t:file write; allow dovecot_auth_t http_port_t:tcp_socket name_connect;')
